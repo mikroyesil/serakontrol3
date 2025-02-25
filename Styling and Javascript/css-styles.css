@@ -1,0 +1,303 @@
+/* 
+ * style.css
+ * Main stylesheet for Vertical Farm Control System
+ * Mint green and white theme
+ */
+
+:root {
+    --primary: #4ade80;         /* Mint green */
+    --primary-dark: #22c55e;    /* Darker mint */
+    --primary-light: #86efac;   /* Lighter mint */
+    --secondary: #f0fdf4;       /* Very light mint */
+    --text: #166534;            /* Dark green text */
+    --text-light: #4ade80;      /* Light green text */
+    --white: #ffffff;
+    --gray-light: #f3f4f6;
+    --gray-medium: #d1d5db;
+    --success: #22c55e;
+    --warning: #eab308;
+    --danger: #ef4444;
+    --info: #3b82f6;
+}
+
+/* Base styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--secondary);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
+    padding: 1rem;
+}
+
+/* Navigation */
+.navbar {
+    background-color: var(--primary) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand, .navbar-dark .navbar-nav .nav-link {
+    color: var(--white) !important;
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.dropdown-menu {
+    border-color: var(--primary-light);
+}
+
+.dropdown-item:hover {
+    background-color: var(--secondary);
+    color: var(--text);
+}
+
+/* Cards */
+.card {
+    border: 1px solid var(--primary-light);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--white);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1rem;
+}
+
+.card-header {
+    background-color: var(--primary);
+    color: var(--white);
+    border-bottom: none;
+}
+
+.card-header h4, .card-header h5 {
+    margin: 0;
+}
+
+/* Status Cards */
+.status-card {
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--secondary);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.status-card i {
+    color: var(--primary);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.status-card h3, .status-card h4, .status-card h5 {
+    color: var(--text);
+    margin: 0 0 0.5rem 0;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+}
+
+.btn-outline-primary {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-outline-primary:hover, .btn-outline-primary:focus {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.btn-success {
+    background-color: var(--success);
+    border-color: var(--success);
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    border-color: var(--danger);
+}
+
+/* Form Controls */
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.25rem rgba(74, 222, 128, 0.25);
+}
+
+.form-check-input:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+/* Progress Bars */
+.progress {
+    background-color: var(--gray-light);
+    border-radius: 5px;
+    height: 10px;
+}
+
+.progress-bar {
+    background-color: var(--primary);
+}
+
+/* Tables */
+.table {
+    color: var(--text);
+}
+
+.table thead th {
+    border-bottom: 2px solid var(--primary-light);
+}
+
+.table tbody tr:hover {
+    background-color: var(--secondary);
+}
+
+/* Badges */
+.badge.bg-success {
+    background-color: var(--success) !important;
+}
+
+.badge.bg-warning {
+    background-color: var(--warning) !important;
+}
+
+.badge.bg-danger {
+    background-color: var(--danger) !important;
+}
+
+.badge.bg-info {
+    background-color: var(--info) !important;
+}
+
+.badge.bg-secondary {
+    background-color: var(--gray-medium) !important;
+}
+
+/* Alerts */
+.alert-info {
+    background-color: var(--secondary);
+    border-color: var(--primary-light);
+    color: var(--text);
+}
+
+.alert-warning {
+    background-color: rgba(234, 179, 8, 0.1);
+    border-color: var(--warning);
+    color: #854d0e;
+}
+
+.alert-danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-color: var(--danger);
+    color: #b91c1c;
+}
+
+/* Light Schedule Timeline */
+.schedule-timeline {
+    margin-top: 1.25rem;
+    position: relative;
+}
+
+.hours-scale {
+    position: relative;
+    height: 20px;
+    margin-bottom: 5px;
+}
+
+.hour-marks {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    height: 100%;
+}
+
+.hour-mark {
+    position: relative;
+    font-size: 10px;
+    flex: 1;
+    text-align: center;
+    border-left: 1px solid var(--gray-medium);
+}
+
+.hour-mark:last-child {
+    border-right: 1px solid var(--gray-medium);
+}
+
+.light-zones {
+    position: relative;
+    min-height: 200px;
+}
+
+.zone-timeline {
+    position: relative;
+    height: 25px;
+    margin-bottom: 5px;
+    background-color: var(--gray-light);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.zone-label {
+    position: absolute;
+    left: 5px;
+    top: 4px;
+    z-index: 2;
+    font-size: 12px;
+    color: var(--text);
+}
+
+.zone-active-period {
+    position: absolute;
+    height: 100%;
+    background-color: var(--primary);
+    z-index: 1;
+}
+
+.loading-message {
+    text-align: center;
+    padding: 20px;
+    color: var(--text);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--white);
+    color: var(--text);
+    text-align: center;
+    padding: 1rem 0;
+    border-top: 1px solid var(--primary-light);
+}
+
+/* Chart containers */
+.chart-container {
+    background-color: var(--secondary);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .status-card {
+        margin-bottom: 1rem;
+    }
+    
+    .card-title {
+        font-size: 1.2rem;
+    }
+    
+    .form-label {
+        font-size: 0.9rem;
+    }
+}

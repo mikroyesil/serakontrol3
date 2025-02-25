@@ -1,0 +1,27 @@
+# Remaining Controller Files Structure
+
+The following Python controller files need to be implemented to complete the system:
+
+## 1. controllers/light_controller.py
+This file manages the 7 light zones, schedules, and light relay control.
+
+## 2. controllers/environment_controller.py
+This file handles CO2 injection, humidity control, and environmental parameters.
+
+## 3. controllers/nutrient_controller.py
+This file manages nutrient dosing, pH adjustment, and EC maintenance.
+
+## 4. controllers/watering_controller.py
+This file controls the irrigation system, watering schedules, and pump activation.
+
+## 5. controllers/sensor_manager.py
+This file interfaces with all physical sensors and provides readings to the system.
+
+Each controller follows a similar pattern with the following methods:
+- __init__(): Initializes controller with database and socket connections
+- update(): Regular update method called from the main loop
+- get_settings(): Returns current controller settings
+- update_settings(): Updates controller settings
+- manual_control(): Handles manual control commands
+
+These controllers should be implemented according to your specific hardware setup, sensor connections, and control requirements. The basic structure has been provided in the previous files.

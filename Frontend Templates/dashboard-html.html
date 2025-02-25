@@ -1,0 +1,244 @@
+{% extends "layout.html" %}
+
+{% block title %}Dashboard - Vertical Farm Control System{% endblock %}
+
+{% block content %}
+<div class="row mb-3">
+    <div class="col-md-12">
+        <h2><i class="fas fa-seedling"></i> System Overview</h2>
+        <p class="text-muted">Current status of your vertical farming system</p>
+    </div>
+</div>
+
+<!-- System Status Cards -->
+<div class="row">
+    <!-- System Status Overview -->
+    <div class="col-md-12">
+        <div class="card mb-3">
+            <div class="card-header bg-primary text-white">
+                <h4><i class="fas fa-info-circle"></i> Environmental Status</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="status-card">
+                            <i class="fas fa-temperature-high"></i>
+                            <h5>Temperature</h5>
+                            <h3 id="current-temperature">--.-°C</h3>
+                            <span id="temp-status" class="badge bg-success">Normal</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="status-card">
+                            <i class="fas fa-tint"></i>
+                            <h5>Humidity</h5>
+                            <h3 id="current-humidity">--%</h3>
+                            <span id="humidity-status" class="badge bg-success">Normal</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="status-card">
+                            <i class="fas fa-flask"></i>
+                            <h5>pH Level</h5>
+                            <h3 id="current-ph">-.-</h3>
+                            <span id="ph-status" class="badge bg-success">Normal</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="status-card">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <h5>EC Level</h5>
+                            <h3 id="current-ec">-.-- mS/cm</h3>
+                            <span id="ec-status" class="badge bg-success">Normal</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- System Control Status Cards -->
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-header bg-primary text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-lightbulb"></i> Lighting</h5>
+                    <a href="{{ url_for('lights') }}" class="btn btn-sm btn-light">Configure</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="mb-2" id="light-status-summary">Loading light status...</div>
+                <div class="progress mb-3">
+                    <div id="light-schedule-progress" class="progress-bar bg-primary" role="progressbar" style="width: 0%"></div>
+                </div>
+                <div class="text-center mt-3">
+                    <button id="all-lights-on" class="btn btn-sm btn-success me-2">All On</button>
+                    <button id="all-lights-off" class="btn btn-sm btn-danger">All Off</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-header bg-primary text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-flask"></i> Nutrients</h5>
+                    <a href="{{ url_for('nutrients') }}" class="btn btn-sm btn-light">Configure</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-6">Target EC: <span id="target-ec">--</span></div>
+                    <div class="col-6">Target pH: <span id="target-ph">--</span></div>
+                </div>
+                <div class="mb-2">
+                    <span id="nutrient-status">Auto-dosing is active</span>
+                </div>
+                <div class="text-center mt-3">
+                    <button id="dose-nutrients" class="btn btn-sm btn-primary me-2">Dose Nutrients</button>
+                    <button id="dose-ph" class="btn btn-sm btn-primary">Adjust pH</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-header bg-primary text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-water"></i> Watering</h5>
+                    <a href="{{ url_for('watering') }}" class="btn btn-sm btn-light">Configure</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="mb-2">
+                    Schedule: <span id="watering-schedule">-- min/hour</span>
+                </div>
+                <div class="mb-2">
+                    Status: <span id="watering-status-badge" class="badge bg-secondary">Inactive</span>
+                </div>
+                <div class="mb-2">
+                    Daily usage: <span id="water-usage">--/--</span> minutes
+                </div>
+                <div class="text-center mt-3">
+                    <button id="start-watering" class="btn btn-sm btn-primary me-2">Start Watering</button>
+                    <button id="stop-watering" class="btn btn-sm btn-danger">Stop</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header bg-primary text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-cloud"></i> Environment</h5>
+                    <a href="{{ url_for('environment') }}" class="btn btn-sm btn-light">Configure</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <h6><i class="fas fa-cloud"></i> CO2 Level</h6>
+                            <h4 id="current-co2">--- ppm</h4>
+                            <div class="progress mb-2">
+                                <div id="co2-progress" class="progress-bar bg-primary" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <span id="co2-control-status" class="badge bg-success">Active</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <h6><i class="fas fa-tint"></i> Humidity Control</h6>
+                            <div>Target: <span id="humidity-range">--% - --%</span></div>
+                            <div class="mt-2">
+                                <span id="humidity-control-status" class="badge bg-success">Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-chart-line"></i> System Activity</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Event</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-events">
+                            <tr>
+                                <td colspan="3" class="text-center">Loading recent events...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-end">
+                    <a href="{{ url_for('logs') }}" class="btn btn-sm btn-primary">View All Logs</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Section -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-3">
+            <div class="card-header bg-primary text-white">
+                <h4><i class="fas fa-chart-line"></i> Monitoring Charts</h4>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="chartTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="temp-humidity-tab" data-bs-toggle="tab" data-bs-target="#temp-humidity" type="button" role="tab">Temperature & Humidity</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="ph-ec-tab" data-bs-toggle="tab" data-bs-target="#ph-ec" type="button" role="tab">pH & EC</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="co2-tab" data-bs-toggle="tab" data-bs-target="#co2" type="button" role="tab">CO2 Levels</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="chartTabsContent">
+                    <div class="tab-pane fade show active" id="temp-humidity" role="tabpanel">
+                        <div class="chart-container" style="height:300px;">
+                            <canvas id="tempHumidityChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="ph-ec" role="tabpanel">
+                        <div class="chart-container" style="height:300px;">
+                            <canvas id="phEcChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="co2" role="tabpanel">
+                        <div class="chart-container" style="height:300px;">
+                            <canvas id="co2Chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
